@@ -38,10 +38,12 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 border-b transition-colors duration-200",
-        scrolled || open
-          ? "border-gold/20 bg-bg/95 backdrop-blur-md"
-          : "border-transparent bg-bg/40",
+        "sticky top-0 z-50 border-b transition-colors duration-200",
+        open
+          ? "border-gold/20 bg-[#050505]"
+          : scrolled
+            ? "border-gold/20 bg-bg/95 backdrop-blur-md"
+            : "border-transparent bg-bg/40",
       )}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:h-[4.5rem] sm:px-6">
@@ -132,15 +134,15 @@ export function Header() {
       </div>
 
       {open ? (
-        <div className="fixed inset-x-0 top-16 bottom-0 z-40 bg-bg px-6 py-10 md:hidden">
-          <nav className="flex flex-col gap-2">
+        <div className="fixed inset-x-0 bottom-0 top-16 z-50 overflow-y-auto border-t border-gold/20 bg-[#050505] px-4 py-6 shadow-[0_24px_80px_rgba(0,0,0,0.8)] md:hidden">
+          <nav className="mx-auto flex max-w-lg flex-col gap-2 rounded-xl border border-gold/20 bg-bg-card p-4 shadow-2xl">
             {links.map((l) => (
               <Link
                 key={l.hash ?? l.to}
                 to={l.to}
                 hash={l.hash}
                 onClick={() => setOpen(false)}
-                className="border-b border-gold/15 py-4 font-display text-3xl text-fg"
+                className="border-b border-gold/15 px-3 py-4 font-display text-3xl text-fg transition-colors hover:bg-gold/5 hover:text-gold"
               >
                 {l.label}
               </Link>
