@@ -1,0 +1,122 @@
+@import "tailwindcss";
+@import "react-day-picker/style.css";
+
+@theme {
+  --color-bg: #050505;
+  --color-bg-elevated: #0c0c0c;
+  --color-bg-card: #12110e;
+  --color-fg: #f4ede0;
+  --color-fg-muted: #b7a98a;
+  --color-fg-subtle: #7a6f5a;
+  --color-gold: #c9a45c;
+  --color-gold-soft: #e0c98a;
+  --color-gold-dim: #8a7340;
+  --color-line: #3a3428;
+  --color-danger: #c45c5c;
+  --font-display: "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-script: "Great Vibes", cursive;
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 24px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-gold) 38%, transparent);
+    color: var(--color-fg);
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+.gold-hairline {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-gold) 18%,
+    var(--color-gold-soft) 50%,
+    var(--color-gold) 82%,
+    transparent
+  );
+}
+
+.rdp-root {
+  --rdp-accent-color: var(--color-gold);
+  --rdp-accent-background-color: color-mix(in oklab, var(--color-gold) 18%, transparent);
+  --rdp-today-color: var(--color-gold-soft);
+  --rdp-day-height: 40px;
+  --rdp-day-width: 40px;
+  --rdp-day_button-border-radius: 999px;
+  --rdp-background-color: transparent;
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+}
+
+.rdp-root .rdp-month_caption {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--color-fg);
+}
+
+.rdp-root .rdp-weekday {
+  color: var(--color-fg-subtle);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.rdp-root .rdp-day_button:hover:not([disabled]) {
+  background: color-mix(in oklab, var(--color-gold) 16%, transparent);
+}
+
+.rdp-root .rdp-selected .rdp-day_button {
+  background: var(--color-gold);
+  color: var(--color-bg);
+  border: none;
+}
+
+.rdp-root .rdp-disabled {
+  opacity: 0.28;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
