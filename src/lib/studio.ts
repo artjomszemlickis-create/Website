@@ -1,7 +1,7 @@
 export const STUDIO = {
   artist: "Jelena Gutseva",
   name: "Mini Tattoo",
-  email: "artjomszemlickis@gmail.com",
+  email: "JelenaGutseva@gmail.com",
   hours: "11:00–19:00",
 } as const;
 
