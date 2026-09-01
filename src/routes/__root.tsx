@@ -23,7 +23,7 @@ export const Route = createRootRoute({
         content:
           "Fine line и mini tattoo — приватная студия Jelena Gutseva. Онлайн-запись на сайте.",
       },
-      { name: "theme-color", content: "#050505" },
+      { name: "theme-color", content: "#000000" },
     ],
     links: [
       { rel: "icon", type: "image/png", href: "/logo.png" },

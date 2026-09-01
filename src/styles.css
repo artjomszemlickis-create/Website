@@ -2,7 +2,7 @@
 @import "react-day-picker/style.css";
 
 @theme {
-  --color-bg: #050505;
+  --color-bg: #000000;
   --color-bg-elevated: #0c0c0c;
   --color-bg-card: #12110e;
   --color-fg: #f4ede0;

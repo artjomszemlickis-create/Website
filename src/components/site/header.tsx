@@ -40,7 +40,7 @@ export function Header() {
       className={cn(
         "sticky top-0 z-50 border-b transition-colors duration-200",
         open
-          ? "border-gold/20 bg-[#050505]"
+          ? "border-gold/20 bg-black"
           : scrolled
             ? "border-gold/20 bg-bg/95 backdrop-blur-md"
             : "border-transparent bg-bg/40",
@@ -134,7 +134,7 @@ export function Header() {
       </div>
 
       {open ? (
-        <div className="fixed inset-x-0 bottom-0 top-16 z-50 overflow-y-auto border-t border-gold/20 bg-[#050505] px-4 py-6 shadow-[0_24px_80px_rgba(0,0,0,0.8)] md:hidden">
+        <div className="fixed inset-x-0 bottom-0 top-16 z-50 overflow-y-auto border-t border-gold/20 bg-black px-4 py-6 shadow-[0_24px_80px_rgba(0,0,0,0.8)] md:hidden">
           <nav className="mx-auto flex max-w-lg flex-col gap-2 rounded-xl border border-gold/20 bg-bg-card p-4 shadow-2xl">
             {links.map((l) => (
               <Link
