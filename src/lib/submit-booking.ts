@@ -1,6 +1,13 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { STUDIO, formatPrice, serviceById } from "./studio";
+import { getSql } from "./db";
+import {
+  CLOSED_WEEKDAYS,
+  STUDIO,
+  buildTimeSlots,
+  formatPrice,
+  serviceById,
+} from "./studio";
 
 const bookingSchema = z.object({
   name: z.string().trim().min(2).max(80),
@@ -22,6 +29,38 @@ const bookingSchema = z.object({
 });
 
 export type BookingInput = z.infer<typeof bookingSchema>;
+
+const availabilitySchema = z.object({
+  service: z.string().min(1),
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+});
+
+function timeToMinutes(time: string): number {
+  const [hours, minutes] = time.split(":").map(Number);
+  return hours * 60 + minutes;
+}
+
+export const getAvailableSlots = createServerFn({ method: "GET" })
+  .validator(availabilitySchema)
+  .handler(async ({ data }) => {
+    const service = serviceById(data.service);
+    if (!service) return { slots: [] as string[] };
+
+    const sql = await getSql();
+    const rows = await sql.query<{ slot_minute: number }>(
+      "select slot_minute from booking_slot_quarters where booking_date = $1::date",
+      [data.date],
+    );
+    const occupied = new Set(rows.map((row) => row.slot_minute));
+    const slots = buildTimeSlots(service.durationMin).filter((time) => {
+      const start = timeToMinutes(time);
+      for (let minute = start; minute < start + service.durationMin; minute += 15) {
+        if (occupied.has(minute)) return false;
+      }
+      return true;
+    });
+    return { slots };
+  });
 
 function formatMessage(data: BookingInput): string {
   const service = serviceById(data.service);
@@ -61,6 +100,57 @@ export const submitBooking = createServerFn({ method: "POST" })
     }
 
     const service = serviceById(data.service);
+    if (!service || !buildTimeSlots(service.durationMin).includes(data.time)) {
+      return { ok: false as const, reason: "invalid_slot" as const };
+    }
+
+    const bookingDay = new Date(`${data.date}T12:00:00Z`);
+    const minimumDay = new Date();
+    minimumDay.setUTCHours(12, 0, 0, 0);
+    minimumDay.setUTCDate(minimumDay.getUTCDate() + service.minNoticeDays);
+    if (
+      Number.isNaN(bookingDay.getTime()) ||
+      bookingDay.toISOString().slice(0, 10) !== data.date ||
+      bookingDay < minimumDay ||
+      CLOSED_WEEKDAYS.includes(bookingDay.getUTCDay() as 0 | 1)
+    ) {
+      return { ok: false as const, reason: "invalid_slot" as const };
+    }
+
+    const startMinute = timeToMinutes(data.time);
+    const endMinute = startMinute + service.durationMin;
+    const sql = await getSql();
+    let bookingId: number;
+    try {
+      const rows = await sql.query<{ booking_id: number }>(
+        `with new_booking as (
+          insert into bookings (
+            service, booking_date, start_minute, end_minute, name, email, phone,
+            instagram, placement, size, description, first_tattoo, allergies,
+            reference_url, locale
+          ) values (
+            $1, $2::date, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15
+          ) returning id
+        )
+        insert into booking_slot_quarters (booking_id, booking_date, slot_minute)
+        select id, $2::date, generate_series($3, $4 - 1, 15)
+        from new_booking
+        returning booking_id`,
+        [
+          data.service, data.date, startMinute, endMinute, data.name, data.email,
+          data.phone, data.instagram, data.placement, data.size, data.description,
+          data.firstTattoo, data.allergies, data.referenceUrl, data.locale,
+        ],
+      );
+      bookingId = rows[0]?.booking_id;
+      if (!bookingId) return { ok: false as const, reason: "save_failed" as const };
+    } catch (error) {
+      if ((error as { code?: string }).code === "23505") {
+        return { ok: false as const, reason: "slot_taken" as const };
+      }
+      return { ok: false as const, reason: "save_failed" as const };
+    }
+
     const price = service ? formatPrice(service, "от") : "—";
     const subject = `Запись: ${data.name} — ${data.date} ${data.time} — ${data.service}`;
     const autoresponse =
@@ -107,12 +197,14 @@ export const submitBooking = createServerFn({ method: "POST" })
       });
 
       if (!res.ok) {
-        return { ok: false as const };
+        await sql.query("delete from bookings where id = $1", [bookingId]);
+        return { ok: false as const, reason: "email_failed" as const };
       }
 
       return { ok: true as const };
     } catch {
-      return { ok: false as const };
+      await sql.query("delete from bookings where id = $1", [bookingId]);
+      return { ok: false as const, reason: "email_failed" as const };
     }
   });
 

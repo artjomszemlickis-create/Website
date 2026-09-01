@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { addDays, format, startOfDay } from "date-fns";
 import { enUS, et, ru } from "date-fns/locale";
@@ -9,7 +9,11 @@ import { FieldError, Input, Label, Textarea } from "@/components/ui/field";
 import { GoldRule } from "@/components/site/gold-rule";
 import { BookingServiceMenu } from "@/components/site/service-menu";
 import { useI18n } from "@/lib/i18n";
-import { mailtoHref, submitBooking } from "@/lib/submit-booking";
+import {
+  getAvailableSlots,
+  mailtoHref,
+  submitBooking,
+} from "@/lib/submit-booking";
 import {
   CLOSED_WEEKDAYS,
   PLACEMENTS,
@@ -80,16 +84,41 @@ export function BookingForm({ initialService }: { initialService?: string }) {
 
   const service = form.service ? serviceById(form.service) : undefined;
   const tattoo = isTattooService(form.service || undefined);
-  const slots = useMemo(
+  const baseSlots = useMemo(
     () => (service ? buildTimeSlots(service.durationMin) : []),
     [service],
   );
+  const [slots, setSlots] = useState<string[]>([]);
+  const [loadingSlots, setLoadingSlots] = useState(false);
   const minDate = addDays(
     startOfDay(new Date()),
     service?.minNoticeDays ?? 2,
   );
   const openFrom = firstOpenDay(minDate);
   const dateLocale = locale === "ru" ? ru : locale === "et" ? et : enUS;
+
+  useEffect(() => {
+    if (!form.date || !form.service) {
+      setSlots(baseSlots);
+      return;
+    }
+    let cancelled = false;
+    setLoadingSlots(true);
+    const date = format(form.date, "yyyy-MM-dd");
+    void getAvailableSlots({ data: { service: form.service, date } })
+      .then((result) => {
+        if (!cancelled) setSlots(result.slots);
+      })
+      .catch(() => {
+        if (!cancelled) setSlots([]);
+      })
+      .finally(() => {
+        if (!cancelled) setLoadingSlots(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [baseSlots, form.date, form.service]);
 
   function set<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -155,6 +184,10 @@ export function BookingForm({ initialService }: { initialService?: string }) {
       if (res.ok) {
         setDone(true);
         toast.success(b.successTitle);
+      } else if (res.reason === "slot_taken") {
+        set("time", "");
+        setStep(1);
+        toast.error(b.noSlots);
       } else {
         setFailed(true);
         toast.error(b.error);
@@ -262,7 +295,9 @@ export function BookingForm({ initialService }: { initialService?: string }) {
           </div>
           <div>
             <Label>{b.pickTime}</Label>
-            {slots.length === 0 ? (
+            {loadingSlots ? (
+              <p className="text-sm text-fg-muted">…</p>
+            ) : slots.length === 0 ? (
               <p className="text-sm text-fg-muted">{b.noSlots}</p>
             ) : (
               <div className="grid grid-cols-2 gap-2">
