@@ -16,7 +16,7 @@ const bookingSchema = z.object({
   firstTattoo: z.boolean(),
   allergies: z.string().trim().max(300).optional().default(""),
   referenceUrl: z.string().trim().max(300).optional().default(""),
-  locale: z.enum(["ru", "en"]),
+  locale: z.enum(["ru", "en", "et"]),
   honeypot: z.string().optional().default(""),
   elapsedMs: z.number().optional().default(0),
 });
@@ -65,8 +65,10 @@ export const submitBooking = createServerFn({ method: "POST" })
     const subject = `Запись: ${data.name} — ${data.date} ${data.time} — ${data.service}`;
     const autoresponse =
       data.locale === "en"
-        ? "Thank you. Your booking request for Jelena Gutseva is in. You will receive a confirmation email with the date and time."
-        : "Спасибо. Заявка на запись к Jelena Gutseva получена. Я напишу, чтобы подтвердить дату и время.";
+        ? "Thank you. Your booking request for Jelena Gutseva has been received. I will email you to confirm the date and time."
+        : data.locale === "et"
+          ? "Aitäh! Teie broneerimistaotlus Jelena Gutseva juurde on kätte saadud. Kirjutan teile kuupäeva ja kellaaja kinnitamiseks."
+          : "Спасибо. Заявка на запись к Jelena Gutseva получена. Я напишу, чтобы подтвердить дату и время.";
 
     const payload: Record<string, string> = {
       _subject: subject,

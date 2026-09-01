@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 import type { PlacementId, ServiceId } from "./studio";
 
-export type Locale = "ru" | "en";
+export type Locale = "ru" | "en" | "et";
 
 const serviceItemsRu = {
   mini: { name: "Mini", desc: "До 5 см. Символ, крошечный цветок, звезда, инициал." },
@@ -45,19 +45,19 @@ const serviceItemsEn = {
   touchup: { name: "Tattoo touch-up", desc: "Refreshing my own healed work." },
   henna: {
     name: "Henna brows",
-    desc: "Tint and a clean shape. Colour lasts up to two weeks; the architecture is instant.",
+    desc: "Henna tint and precise shaping. Colour lasts up to two weeks.",
   },
   "lash-lam": {
     name: "Lash lift",
-    desc: "A curl and a feed — an open eye without extensions. Holds 6–8 weeks.",
+    desc: "Curl and conditioning for a more open look without extensions. Lasts 6–8 weeks.",
   },
   "pmu-brow": {
-    name: "Brow permanent",
-    desc: "Powder or hair-strokes for your bone structure. Density, not graphic block.",
+    name: "Brow permanent makeup",
+    desc: "Powder or hairstroke technique tailored to your features, with a natural finish.",
   },
   "pmu-lip": {
-    name: "Lip permanent",
-    desc: "Watercolour or a soft contour wash. Colour that does not vanish by evening.",
+    name: "Lip permanent makeup",
+    desc: "A watercolour effect or soft contour for an even, natural-looking tint.",
   },
   lashline: {
     name: "Lash-line",
@@ -68,6 +68,300 @@ const serviceItemsEn = {
     desc: "Classic or soft wing, drawn for your eye — never a stamp.",
   },
 } satisfies Record<ServiceId, { name: string; desc: string }>;
+
+const serviceItemsEt = {
+  mini: { name: "Mini", desc: "Kuni 5 cm. Sümbol, väike lill, täht või initsiaal." },
+  small: { name: "Väike fine line", desc: "5–10 cm. Oks, kuusirp või väike kompositsioon." },
+  medium: { name: "Eritellimus", desc: "10–15 cm. Teie anatoomiaga sobiv autorikavand." },
+  lettering: { name: "Kiri", desc: "Nimi, kuupäev või lühike fraas. Valime sobiva kirjastiili." },
+  pair: { name: "Paaritätoveering", desc: "Kaks omavahel seotud minimotiivi." },
+  touchup: { name: "Tatoveeringu värskendus", desc: "Minu tehtud ja paranenud töö värskendamine." },
+  henna: {
+    name: "Kulmude hennavärvimine",
+    desc: "Hennavärv ja täpne kulmukuju. Värv püsib kuni kaks nädalat.",
+  },
+  "lash-lam": {
+    name: "Ripsmete lamineerimine",
+    desc: "Kaunis kaar ja hooldus ilma pikendusteta. Tulemus püsib 6–8 nädalat.",
+  },
+  "pmu-brow": {
+    name: "Kulmude püsimeik",
+    desc: "Puudertehnika või karvtehnika, mis sobib teie näojoontega. Loomulik tulemus.",
+  },
+  "pmu-lip": {
+    name: "Huulte püsimeik",
+    desc: "Akvarelltehnika või pehme kontuur. Ühtlane ja loomulik toon.",
+  },
+  lashline: {
+    name: "Ripsmetevaheline joon",
+    desc: "Õhuke joon ripsmepiiril muudab ripsmed visuaalselt tihedamaks.",
+  },
+  wing: {
+    name: "Lainerijoon",
+    desc: "Klassikaline või hajutatud lainerijoon, mis arvestab teie silmakujuga.",
+  },
+} satisfies Record<ServiceId, { name: string; desc: string }>;
+
+const copyEt = {
+  langName: "ET",
+  skip: "Liigu sisu juurde",
+  nav: {
+    home: "Avaleht",
+    works: "Tehtud tööd",
+    services: "Teenused",
+    about: "Tegijast",
+    aftercare: "Järelhooldus",
+    book: "Broneeri",
+  },
+  cta: "Broneeri aeg",
+  hero: {
+    kicker: "Fine line · Püsimeik · Kulmud",
+    tagline:
+      "Fine-line-tätoveeringud, püsimeik ning kulmu- ja ripsmehooldus privaatses stuudios. Broneerimine toimub veebis.",
+    viewWorks: "Vaata töid",
+  },
+  intro: {
+    kicker: "Stuudio",
+    title: "Kaks peent suunda",
+    body: "Fine line on ehe nahal. Selle kõrval toon esile pilgu: hennakulmud ja ripsmete lamineerimine, kulmude ja huulte püsimeik ning silmalainer. Üks käekiri, rahulik tempo ja personaalne lähenemine.",
+  },
+  services: {
+    from: "alates",
+    min: "min",
+    tattoo: {
+      kicker: "Fine line",
+      title: "Minitätoveering",
+      note: "Lõplik hind sõltub suurusest ja joonte tihedusest. Täpse hinna kinnitame enne protseduuri.",
+    },
+    brows: {
+      kicker: "Pilk",
+      title: "Kulmud ja ripsmed",
+      note: "Fikseeritud hind. Tulge ilma ripsmetušita ja vältige värsket päevitust näol.",
+    },
+    pmu: {
+      kicker: "Püsimeik",
+      title: "Püsimeik",
+      note: "Fikseeritud hind. Vajaduse korral broneeritakse korrigeeriv protseduur 6–8 nädala pärast eraldi. 18+.",
+    },
+    items: serviceItemsEt,
+  },
+  works: {
+    kicker: "Portfoolio",
+    title: "Valitud tööd",
+    all: "Kogu galerii",
+    snake: "Madu ja oliivioksad · õlg",
+    stars: "Tähtkuju · pahkluu",
+  },
+  process: {
+    kicker: "Kuidas see toimub",
+    title: "Neli rahulikku sammu",
+    steps: [
+      {
+        n: "01",
+        title: "Broneerimistaotlus",
+        body: "Valige teenus, kuupäev ja kellaaeg ning kirjeldage oma soovi.",
+      },
+      {
+        n: "02",
+        title: "Kinnitus",
+        body: "Kinnitan aja e-posti teel ning täpsustan kavandi, kuju või pigmendi.",
+      },
+      {
+        n: "03",
+        title: "Protseduur",
+        body: "Privaatne stuudio, rahulik tempo, steriilsed ja ühekordsed vahendid.",
+      },
+      {
+        n: "04",
+        title: "Järelhooldus",
+        body: "Saate eraldi hooldusjuhised tätoveeringu või püsimeigi jaoks.",
+      },
+    ],
+  },
+  about: {
+    kicker: "Tegija",
+    title: "Jelena Gutseva",
+    body: "Tegelen kahe omavahel seotud suunaga: fine line / minitätoveeringud ja püsimeik. Peen joon, puhas vorm ja piisavalt õhku. Stuudio on privaatne ning töötab ainult broneeringu alusel.",
+    points: [
+      "Fine line ilma tiheda täitevärvita",
+      "Kulmude, huulte ja silmalaineri püsimeik",
+      "Kulmude hennavärvimine ja ripsmete lamineerimine",
+      "Steriilsed ühekordsed vahendid, 18+",
+    ],
+  },
+  faq: {
+    kicker: "Küsimused",
+    title: "Oluline lühidalt",
+    items: [
+      {
+        q: "Kas tätoveering ja püsimeik on sama asi?",
+        a: "Ei. Tätoveering on mõeldud nahas pikaajaliselt püsima. Püsimeik tehakse teise tehnikaga ja muutub aja jooksul heledamaks; püsivus on individuaalne. Hennavärvimine ja ripsmete lamineerimine on kosmeetilised hooldused, mitte tätoveeringud.",
+      },
+      {
+        q: "Kas protseduur on valus?",
+        a: "Tundlikkus sõltub piirkonnast ja inimesest. Fine-line-tätoveeringut talutakse tavaliselt kergemini kui suure täitevärviga tööd. Püsimeigi valutustamise võimalused arutame läbi enne protseduuri.",
+      },
+      {
+        q: "Kui kaua püsimeik paraneb?",
+        a: "Esmane paranemine kestab tavaliselt 5–10 päeva ning lõplik toon kujuneb järgnevate nädalate jooksul. Kuni paranemiseni vältige päikest, sauna, ujumist ja kosmeetikat töödeldud piirkonnas.",
+      },
+      {
+        q: "Kas enne hennavärvimist on vaja allergiatesti?",
+        a: "Kui teil on varem esinenud reaktsiooni juuksevärvile või hennale, märkige see broneerimistaotluses. Ripsmete lamineerimise päeval eemaldage kontaktläätsed ja vältige värsket päevitust.",
+      },
+      {
+        q: "Kas broneerimiseks on vaja ettemaksu?",
+        a: "Broneering kinnitatakse e-posti teel. Plaanide muutumisel andke teada vähemalt 48 tundi varem; hennavärvimise ja lamineerimise puhul 24 tundi varem.",
+      },
+      {
+        q: "Milline on vanusepiirang?",
+        a: "Tätoveering ja püsimeik on alates 18. eluaastast ning protseduurile tuleb kaasa võtta isikut tõendav dokument. Selles stuudios on ka hennavärvimine ja lamineerimine 18+.",
+      },
+    ],
+  },
+  band: {
+    title: "Kas olete valmis oma jooneks?",
+    body: "Valige tätoveering, püsimeik või pilguhooldus ning sobiv aeg. Taotlus jõuab minu e-posti.",
+  },
+  footer: {
+    private: "Privaatne stuudio · ainult broneeringuga",
+    hours: "T–L, 11.00–19.00",
+    rights: "Kõik tööd © Jelena Gutseva",
+    email: "Broneerimise e-post",
+  },
+  galleryPage: {
+    kicker: "Galerii",
+    title: "Jooned, mis jäävad",
+    lead: "Iga kavand sünnib uuesti. Siin on valik peene musta joone, õhu ja täpse siluetiga töödest.",
+  },
+  aftercarePage: {
+    kicker: "Järelhooldus",
+    title: "Hooldus pärast protseduuri",
+    lead: "Tätoveering, püsimeik ning kulmu- ja ripsmehooldus vajavad erinevat järelhooldust. Järgige alati protseduuril antud personaalseid juhiseid.",
+    tattooTitle: "Fine-line-tätoveering",
+    tattooSteps: [
+      {
+        title: "Esimesed tunnid",
+        body: "Hoidke kaitset peal vastavalt protseduuril antud juhisele, sest aeg sõltub kasutatud sidemest. Peske käed, eemaldage kaitse, loputage leige veega ja tupsutage puhta ühekordse rätikuga kuivaks.",
+      },
+      {
+        title: "1.–7. päev",
+        body: "Kandke õhuke kiht soovitatud hoolduskreemi. Vältige basseini, sauna, merd ja tugevat higistamist. Ärge kratsige ega eemaldage koorikuid.",
+      },
+      {
+        title: "8.–14. päev",
+        body: "Kerge ketendus on tavapärane. Niisutage õrnalt vastavalt juhistele. Joon võib paranemise ajal ajutiselt heledam tunduda.",
+      },
+      {
+        title: "Edaspidi",
+        body: "Kaitske täielikult paranenud tätoveeringut päikese eest. Värskendust arutame mitte varem kui 6–8 nädala pärast.",
+      },
+    ],
+    tattooAvoid: [
+      "Solaarium ja otsene päike",
+      "Meri, järv ja bassein",
+      "Alkohol, vesinikperoksiid ja soovitamata salvid",
+    ],
+    pmuTitle: "Kulmude, huulte ja silmalaineri püsimeik",
+    pmuSteps: [
+      {
+        title: "Esimene ööpäev",
+        body: "Hoidke piirkond kuiv ja ärge kasutage sellel dekoratiivkosmeetikat. Magage puhtal padjapüüril ning vältige näoga vastu patja magamist.",
+      },
+      {
+        title: "2.–7. päev",
+        body: "Kasutage õhukese kihina ainult soovitatud kreemi. Ärge eemaldage koorikuid. Vältige sauna, basseini ja tugevat higistamist.",
+      },
+      {
+        title: "Kuni 4 nädalat",
+        body: "Toon on alguses intensiivsem, muutub seejärel heledamaks ja ühtlustub. Lõpptulemust hindame umbes kuu pärast.",
+      },
+    ],
+    pmuAvoid: [
+      "Koorijad, retinool ja happed töödeldud piirkonnas",
+      "Solaarium, meri ja saun 14 päeva",
+      "Ripsmepikendused kohe pärast silmalaineri püsimeiki",
+    ],
+    browsTitle: "Hennakulmud ja ripsmete lamineerimine",
+    browsSteps: [
+      {
+        title: "Esimesed 24 tundi",
+        body: "Hoidke kulmud ja ripsmed kuivana. Vältige sauna, basseini ja intensiivset treeningut. Ärge hõõruge rätikuga.",
+      },
+      {
+        title: "2.–7. päev",
+        body: "Vältige piirkonnas õlisid ja rasvaseid kreeme. Ripsmetušši võib kasutada alates teisest päevast; veekindlat tušši tasub vältida.",
+      },
+      {
+        title: "Edaspidi",
+        body: "Hennavärv püsib kuni 10–14 päeva ja lamineerimise tulemus 6–8 nädalat. Korrake protseduuri siis, kui kuju või kaar hakkab taanduma.",
+      },
+    ],
+    browsAvoid: [
+      "Kulmukoorija protseduuripäeval",
+      "Kontaktläätsed lamineerimise ajal",
+      "Ripsmepikendused kohe pärast lamineerimist",
+    ],
+    avoidTitle: "Vältige",
+  },
+  booking: {
+    kicker: "Veebibroneering",
+    title: "Valige sobiv aeg",
+    lead: "Valige esmalt teenus, seejärel kuupäev ja kellaaeg. Taotlus saadetakse kohe minu e-posti.",
+    steps: ["Teenus", "Kuupäev ja aeg", "Üksikasjad", "Kontakt"],
+    next: "Edasi",
+    back: "Tagasi",
+    submit: "Saada taotlus",
+    submitting: "Saadan…",
+    service: "Teenus",
+    date: "Kuupäev",
+    time: "Kellaaeg",
+    pickDate: "T–L. Tätoveering ja püsimeik vähemalt 2 päeva ette; henna ja lamineerimine 1 päev ette.",
+    pickTime: "Vabad ajad",
+    noSlots: "Selle teenuse jaoks valitud päeval vabu aegu ei ole. Valige teine kuupäev.",
+    placement: "Asukoht kehal",
+    size: "Ligikaudne suurus",
+    sizePh: "Näiteks 4 cm / küüne suurune",
+    description: "Idee ja soovid",
+    descriptionPh: "Kirjeldage motiivi, meeleolu ning seda, mis teile meeldib või ei meeldi. Viite lingi saate lisada allpool.",
+    beautyDescription: "Teie soov",
+    beautyDescriptionPh: "Kuju, värv, tihedus ja viidete juures meeldivad detailid. Allergiad ja varasemad protseduurid märkige allpool.",
+    firstTattoo: "See on minu esimene tätoveering",
+    firstBeauty: "See on minu esimene selline protseduur",
+    allergies: "Allergiad ja tundlikkus (valikuline)",
+    allergiesPh: "Henna, värvaine, lidokaiin, lateks…",
+    reference: "Viite link (valikuline)",
+    referencePh: "https://",
+    name: "Nimi",
+    phone: "Telefon",
+    email: "E-post",
+    instagram: "Instagram (valikuline)",
+    adult: "Olen vähemalt 18-aastane ja võtan protseduurile kaasa isikut tõendava dokumendi",
+    consent: "Mõistan, et see on broneerimistaotlus. Lõplik kinnitus saabub e-posti teel.",
+    review: "Kontrollige taotlust",
+    successTitle: "Taotlus on saadetud",
+    successBody: "Kiri on saadetud. Kirjutan teile kuupäeva ja kellaaja kinnitamiseks. Kui te ei saa ühe päeva jooksul vastust, kontrollige rämpsposti või kirjutage uuesti.",
+    another: "Uus taotlus",
+    home: "Avalehele",
+    error: "Saatmine ebaõnnestus. Proovige uuesti või kirjutage otse e-posti teel.",
+    mailFallback: "Saada e-kirjaga",
+    required: "See väli on kohustuslik",
+    adultRequired: "Broneerimine on ainult täiskasvanutele",
+    consentRequired: "Palun kinnitage",
+    closed: "Suletud",
+    placements: {
+      wrist: "Ranne",
+      ankle: "Pahkluu",
+      collarbone: "Rangluu",
+      forearm: "Küünarvars",
+      shoulder: "Õlg / abaluu",
+      rib: "Roided",
+      "behind-ear": "Kõrva taga",
+      finger: "Sõrm",
+      other: "Muu",
+    } satisfies Record<PlacementId, string>,
+  },
+} as const;
 
 export const copy = {
   ru: {
@@ -90,8 +384,8 @@ export const copy = {
     },
     intro: {
       kicker: "Студия",
-      title: "Две тихие практики",
-      body: "Fine line — ювелирная линия на теле. Рядом — работа со взглядом: хна и ламинирование, перманент бровей и губ, межресничка и стрелка. Один почерк, без конвейера и без спешки.",
+      title: "Два тонких направления",
+      body: "Fine line — тонкая линия на теле. Второе направление — работа со взглядом: оформление бровей хной, ламинирование ресниц, перманентный макияж бровей, губ и век. Один почерк, индивидуальный подход и спокойный темп.",
     },
     services: {
       from: "от",
@@ -163,15 +457,15 @@ export const copy = {
       items: [
         {
           q: "Тату и перманент — это одно и то же?",
-          a: "Нет. Тату — пигмент в дерме на всю жизнь, линия живёт как украшение на теле. Перманент — более поверхностно, цвет мягко выцветает за 1–3 года и требует освежения. Брови хной и ламинирование — уход, не тату.",
+          a: "Нет. Татуировка рассчитана на длительное сохранение рисунка в коже. Перманентный макияж выполняется в другой технике и постепенно светлеет; срок носки индивидуален. Окрашивание хной и ламинирование — косметические процедуры, а не татуировка.",
         },
         {
           q: "Это больно?",
-          a: "Fine line обычно легче плотных работ. Перманент губ и бровей — ощущение царапанья, работаем с аппликационной анестезией. Хна и ламинирование почти безболезненны.",
+          a: "Ощущения индивидуальны и зависят от зоны и чувствительности. Fine line обычно переносится легче плотной татуировки. Возможность и вид обезболивания для перманентного макияжа обсуждаем до процедуры.",
         },
         {
           q: "Сколько заживает перманент?",
-          a: "Корочка и шелушение 5–10 дней, цвет собирается до 4 недель. Солнце, сауна, бассейн и декоративная косметика на зону — только после полного заживления.",
+          a: "Активное заживление обычно занимает 5–10 дней, а окончательный оттенок проявляется в течение нескольких недель. До заживления избегайте солнца, сауны, бассейна и косметики на обработанной зоне.",
         },
         {
           q: "Нужен ли патч-тест на хну?",
@@ -354,8 +648,8 @@ export const copy = {
     },
     intro: {
       kicker: "Studio",
-      title: "Two quiet practices",
-      body: "Fine line is jewellery on the body. Beside it — the gaze: henna and a lash lift, brow and lip permanent, lash-line and a wing. One hand, no conveyor, no rush.",
+      title: "Two refined disciplines",
+      body: "Fine line creates delicate detail on the body. The second discipline frames the eyes and features through henna brows, lash lifts, and permanent makeup for brows, lips and eyeliner. One signature style, a personal approach and an unhurried pace.",
     },
     services: {
       from: "from",
@@ -385,8 +679,8 @@ export const copy = {
       stars: "Constellation · ankle",
     },
     process: {
-      kicker: "The sitting",
-      title: "Four quiet steps",
+      kicker: "How it works",
+      title: "Four simple steps",
       steps: [
         {
           n: "01",
@@ -401,7 +695,7 @@ export const copy = {
         {
           n: "03",
           title: "Session",
-          body: "A private studio, an unhurried pace, sterile single-use. No neighbouring chair.",
+          body: "A private studio, an unhurried pace, and sterile single-use supplies.",
         },
         {
           n: "04",
@@ -413,7 +707,7 @@ export const copy = {
     about: {
       kicker: "Artist",
       title: "Jelena Gutseva",
-      body: "Two related hands: fine line / mini tattoo and permanent makeup. A thin line, a clean shape, air around the work. The studio is private, appointment only.",
+      body: "I work in two related areas: fine-line / mini tattoos and permanent makeup. Delicate lines, clean shapes and space around the work. The studio is private and appointment only.",
       points: [
         "Fine line — no heavy fill",
         "Brow, lip, lash-line and wing permanent",
@@ -427,15 +721,15 @@ export const copy = {
       items: [
         {
           q: "Is tattoo the same as permanent makeup?",
-          a: "No. Tattoo sits in the dermis for life. Permanent makeup sits more shallow, fades over 1–3 years and wants a refresh. Henna and a lash lift are care — not tattoo.",
+          a: "No. A tattoo is designed to remain in the skin long term. Permanent makeup uses a different technique and gradually fades; how long it lasts varies by person. Henna tinting and lash lifting are cosmetic treatments, not tattoos.",
         },
         {
           q: "Does it hurt?",
-          a: "Fine line is usually gentler than bold work. Brow and lip permanent feel like scratching; we use topical anaesthetic. Henna and lash lift are nearly painless.",
+          a: "Sensation varies by area and individual sensitivity. Fine-line work is usually easier to tolerate than heavily filled tattooing. Pain-relief options for permanent makeup are discussed before the procedure.",
         },
         {
           q: "How long does permanent take to heal?",
-          a: "Flaking 5–10 days; colour settles up to 4 weeks. Sun, sauna, pool and makeup on the zone wait until it has healed.",
+          a: "Initial healing usually takes 5–10 days, while the final shade develops over the following weeks. Avoid sun, sauna, swimming and makeup on the treated area until it has healed.",
         },
         {
           q: "Patch test for henna?",
@@ -464,12 +758,12 @@ export const copy = {
     galleryPage: {
       kicker: "Gallery",
       title: "Lines that stay",
-      lead: "Every piece is drawn once. A thin black pigment, air, a precise silhouette.",
+      lead: "Every design is drawn individually. This selection focuses on fine black lines, open space and precise silhouettes.",
     },
     aftercarePage: {
       kicker: "Aftercare",
-      title: "After the sitting",
-      lead: "Tattoo, permanent and brow-and-lash care heal differently. Three calm protocols — no folklore.",
+      title: "Care after your appointment",
+      lead: "Tattoos, permanent makeup, and brow and lash treatments need different aftercare. Always follow the personal instructions provided at your appointment.",
       tattooTitle: "Fine line tattoo",
       tattooSteps: [
         {
@@ -538,8 +832,8 @@ export const copy = {
     },
     booking: {
       kicker: "Online booking",
-      title: "Choose your hour",
-      lead: "Service first — tattoo, gaze or permanent. Then a day and an hour. The request is emailed to me immediately.",
+      title: "Choose a time",
+      lead: "Choose a service first, then select a date and time. Your request is emailed to me immediately.",
       steps: ["Service", "Date & time", "Details", "Contacts"],
       next: "Continue",
       back: "Back",
@@ -598,6 +892,7 @@ export const copy = {
       } satisfies Record<PlacementId, string>,
     },
   },
+  et: copyEt,
 } as const;
 
 export type Copy = (typeof copy)[Locale];

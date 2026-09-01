@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { addDays, format, startOfDay } from "date-fns";
-import { enUS, ru } from "date-fns/locale";
+import { enUS, et, ru } from "date-fns/locale";
 import { DayPicker } from "react-day-picker";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -89,7 +89,7 @@ export function BookingForm({ initialService }: { initialService?: string }) {
     service?.minNoticeDays ?? 2,
   );
   const openFrom = firstOpenDay(minDate);
-  const dateLocale = locale === "ru" ? ru : enUS;
+  const dateLocale = locale === "ru" ? ru : locale === "et" ? et : enUS;
 
   function set<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((prev) => ({ ...prev, [key]: value }));

@@ -104,6 +104,18 @@ export function Header() {
             >
               EN
             </button>
+            <span className="text-gold/40">/</span>
+            <button
+              type="button"
+              className={cn(
+                "px-1.5 py-2",
+                locale === "et" ? "text-gold" : "hover:text-fg-muted",
+              )}
+              onClick={() => setLocale("et")}
+              aria-pressed={locale === "et"}
+            >
+              ET
+            </button>
           </div>
           <Button asChild size="sm" className="hidden sm:inline-flex">
             <Link to="/booking">{t.cta}</Link>

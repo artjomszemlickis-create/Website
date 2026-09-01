@@ -8,7 +8,7 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const saved = window.localStorage.getItem(STORAGE_KEY);
-    if (saved === "ru" || saved === "en") setLocaleState(saved);
+    if (saved === "ru" || saved === "en" || saved === "et") setLocaleState(saved);
   }, []);
 
   useEffect(() => {
