@@ -34,6 +34,7 @@
     background: var(--color-bg);
     color: var(--color-fg);
     font-family: var(--font-sans);
+    line-height: 1.5;
   }
 
   h1,
@@ -55,6 +56,30 @@
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+}
+
+.section-pad {
+  padding-block: clamp(5rem, 9vw, 8rem);
+}
+
+.hero-surface {
+  background:
+    radial-gradient(circle at 50% 44%, rgba(201, 164, 92, 0.1), transparent 34%),
+    linear-gradient(180deg, #050505 0%, #000 82%);
+}
+
+.hero-orbit {
+  border: 1px solid rgba(201, 164, 92, 0.12);
+  box-shadow:
+    0 0 0 5rem rgba(201, 164, 92, 0.018),
+    0 0 0 10rem rgba(201, 164, 92, 0.012);
+}
+
+.cta-surface {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(201, 164, 92, 0.17), transparent 54%),
+    linear-gradient(145deg, #12110e, #060606 68%);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.42);
 }
 
 .gold-hairline {

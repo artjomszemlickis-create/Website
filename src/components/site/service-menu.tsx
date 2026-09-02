@@ -11,10 +11,7 @@ import {
 } from "@/lib/studio";
 import { cn } from "@/lib/utils";
 
-function groupCopy(
-  t: ReturnType<typeof useI18n>["t"],
-  kind: ServiceKind,
-) {
+function groupCopy(t: ReturnType<typeof useI18n>["t"], kind: ServiceKind) {
   return t.services[kind];
 }
 
@@ -31,23 +28,21 @@ export function ServiceCard({
   const item = t.services.items[service.id];
   const price = formatPrice(service, t.services.from);
   const className = cn(
-    "flex flex-col rounded-xl border p-6 text-left transition-colors duration-200",
+    "group relative flex flex-col overflow-hidden rounded-xl border p-6 text-left transition-[border-color,background-color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60",
     active
       ? "border-gold bg-gold/10"
-      : "border-gold/20 bg-bg-card hover:border-gold/50",
+      : "border-gold/15 bg-bg-card hover:-translate-y-0.5 hover:border-gold/50",
   );
   const inner = (
     <>
       <div className="flex items-baseline justify-between gap-3">
-        <h3 className="font-display text-2xl text-fg">{item.name}</h3>
-        <span className="shrink-0 text-xs uppercase tracking-[0.16em] text-gold">
-          {price}
-        </span>
+        <h3 className="font-display text-2xl text-fg transition-colors group-hover:text-gold-soft">
+          {item.name}
+        </h3>
+        <span className="shrink-0 text-xs uppercase tracking-[0.16em] text-gold">{price}</span>
       </div>
-      <p className="mt-3 flex-1 text-sm leading-relaxed text-fg-muted">
-        {item.desc}
-      </p>
-      <p className="mt-5 text-xs uppercase tracking-[0.16em] text-fg-subtle">
+      <p className="mt-3 flex-1 text-sm leading-relaxed text-fg-muted">{item.desc}</p>
+      <p className="mt-5 border-t border-gold/10 pt-4 text-xs uppercase tracking-[0.16em] text-fg-subtle">
         {service.durationMin} {t.services.min}
       </p>
     </>
@@ -55,11 +50,7 @@ export function ServiceCard({
 
   if (onSelect) {
     return (
-      <button
-        type="button"
-        onClick={() => onSelect(service.id)}
-        className={className}
-      >
+      <button type="button" onClick={() => onSelect(service.id)} className={className}>
         {inner}
       </button>
     );
@@ -89,9 +80,7 @@ export function ServiceGroupBlock({
   return (
     <div>
       <Kicker>{g.kicker}</Kicker>
-      <h2 className="mt-4 font-display text-4xl font-medium text-fg sm:text-5xl">
-        {g.title}
-      </h2>
+      <h2 className="mt-4 font-display text-4xl font-medium text-fg sm:text-5xl">{g.title}</h2>
       <div
         className={cn(
           "mt-10 grid gap-4",
@@ -99,12 +88,7 @@ export function ServiceGroupBlock({
         )}
       >
         {list.map((s) => (
-          <ServiceCard
-            key={s.id}
-            service={s}
-            active={selected === s.id}
-            onSelect={onSelect}
-          />
+          <ServiceCard key={s.id} service={s} active={selected === s.id} onSelect={onSelect} />
         ))}
       </div>
       <p className="mt-6 text-sm text-fg-subtle">{g.note}</p>
@@ -115,18 +99,18 @@ export function ServiceGroupBlock({
 export function HomeServiceMenu() {
   return (
     <>
-      <section id="services" className="px-4 py-20 sm:px-6">
+      <section id="services" className="section-pad bg-bg-elevated/55 px-4 sm:px-6">
         <div className="mx-auto max-w-6xl">
           <ServiceGroupBlock kind="tattoo" />
         </div>
       </section>
-      <section id="beauty" className="px-4 pb-10 sm:px-6">
+      <section id="beauty" className="bg-bg-elevated/55 px-4 pb-12 sm:px-6">
         <div className="mx-auto max-w-6xl">
           <GoldRule className="mb-16 max-w-xs" />
           <ServiceGroupBlock kind="brows" columns={2} />
         </div>
       </section>
-      <section id="permanent" className="px-4 pb-20 sm:px-6">
+      <section id="permanent" className="bg-bg-elevated/55 px-4 pb-24 sm:px-6 sm:pb-32">
         <div className="mx-auto max-w-6xl">
           <ServiceGroupBlock kind="pmu" columns={2} />
         </div>

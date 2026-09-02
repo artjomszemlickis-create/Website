@@ -46,28 +46,23 @@ export function Header() {
             : "border-transparent bg-bg/40",
       )}
     >
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:h-[4.5rem] sm:px-6">
-        <Link
-          to="/"
-          className="flex min-w-0 items-center gap-3"
-          onClick={() => setOpen(false)}
-        >
-          <img
-            src="/logo.png"
-            alt=""
-            className="h-11 w-11 object-contain sm:h-12 sm:w-12"
-          />
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:h-[4.5rem] sm:px-6">
+        <Link to="/" className="flex min-w-0 items-center gap-3" onClick={() => setOpen(false)}>
+          <span
+            aria-hidden="true"
+            className="flex size-9 shrink-0 items-center justify-center rounded-full border border-gold/35 font-display text-lg italic text-gold"
+          >
+            JG
+          </span>
           <span className="min-w-0 leading-tight">
-            <span className="block font-script text-xl text-gold sm:text-2xl">
-              Jelena Gutseva
-            </span>
+            <span className="block font-script text-xl text-gold sm:text-2xl">Jelena Gutseva</span>
             <span className="block text-[0.65rem] uppercase tracking-[0.28em] text-fg-muted">
               Mini Tattoo
             </span>
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-7 md:flex">
+        <nav aria-label="Primary" className="hidden items-center gap-7 md:flex">
           {links.map((l) => (
             <Link
               key={l.hash ?? l.to}
@@ -85,10 +80,7 @@ export function Header() {
           <div className="flex items-center text-xs tracking-[0.16em] text-fg-subtle">
             <button
               type="button"
-              className={cn(
-                "px-1.5 py-2",
-                locale === "ru" ? "text-gold" : "hover:text-fg-muted",
-              )}
+              className={cn("px-1.5 py-2", locale === "ru" ? "text-gold" : "hover:text-fg-muted")}
               onClick={() => setLocale("ru")}
               aria-pressed={locale === "ru"}
             >
@@ -97,10 +89,7 @@ export function Header() {
             <span className="text-gold/40">/</span>
             <button
               type="button"
-              className={cn(
-                "px-1.5 py-2",
-                locale === "en" ? "text-gold" : "hover:text-fg-muted",
-              )}
+              className={cn("px-1.5 py-2", locale === "en" ? "text-gold" : "hover:text-fg-muted")}
               onClick={() => setLocale("en")}
               aria-pressed={locale === "en"}
             >
@@ -109,10 +98,7 @@ export function Header() {
             <span className="text-gold/40">/</span>
             <button
               type="button"
-              className={cn(
-                "px-1.5 py-2",
-                locale === "et" ? "text-gold" : "hover:text-fg-muted",
-              )}
+              className={cn("px-1.5 py-2", locale === "et" ? "text-gold" : "hover:text-fg-muted")}
               onClick={() => setLocale("et")}
               aria-pressed={locale === "et"}
             >
@@ -135,7 +121,10 @@ export function Header() {
 
       {open ? (
         <div className="fixed inset-x-0 bottom-0 top-16 z-50 overflow-y-auto border-t border-gold/20 bg-black px-4 py-6 shadow-[0_24px_80px_rgba(0,0,0,0.8)] md:hidden">
-          <nav className="mx-auto flex max-w-lg flex-col gap-2 rounded-xl border border-gold/20 bg-bg-card p-4 shadow-2xl">
+          <nav
+            aria-label="Mobile"
+            className="mx-auto flex max-w-lg flex-col gap-2 rounded-xl border border-gold/20 bg-bg-card p-4 shadow-2xl"
+          >
             {links.map((l) => (
               <Link
                 key={l.hash ?? l.to}

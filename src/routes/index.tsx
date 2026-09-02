@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ChevronDown } from "lucide-react";
+import { ArrowDown, ChevronDown, ShieldCheck, Sparkles } from "lucide-react";
 import { Shell } from "@/components/site/shell";
 import { GoldRule, Kicker } from "@/components/site/gold-rule";
 import { HomeServiceMenu } from "@/components/site/service-menu";
@@ -29,39 +29,55 @@ function Home() {
 function Hero() {
   const { t } = useI18n();
   return (
-    <section className="relative overflow-hidden px-4 py-8 sm:px-6 sm:py-10">
-      <div className="pointer-events-none absolute inset-0 opacity-70">
-        <div className="absolute left-[12%] top-[18%] size-1 rotate-45 bg-gold/70" />
-        <div className="absolute right-[18%] top-[22%] size-px bg-gold" />
-        <div className="absolute right-[14%] top-[28%] h-8 w-px bg-gradient-to-b from-gold/80 to-transparent" />
-        <div className="absolute bottom-[22%] left-[20%] size-1 rotate-45 bg-gold/50" />
+    <section className="hero-surface relative isolate overflow-hidden border-b border-gold/10 px-4 sm:px-6">
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div className="hero-orbit absolute left-1/2 top-1/2 size-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full sm:size-[46rem]" />
+        <div className="absolute left-[8%] top-[22%] size-1 rotate-45 bg-gold/70" />
+        <div className="absolute right-[12%] top-[28%] size-1 rotate-45 bg-gold/45" />
       </div>
-      <div className="relative mx-auto flex max-w-3xl flex-col items-center text-center">
+      <div className="relative mx-auto flex min-h-[calc(100svh-4rem)] max-w-5xl flex-col items-center justify-center py-20 text-center sm:min-h-[720px] sm:py-24">
         <Kicker>{t.hero.kicker}</Kicker>
-        <img
-          src="/logo.png"
-          alt="Jelena Gutseva Mini Tattoo"
-          className="mt-2 h-64 w-auto object-contain sm:h-72"
-        />
-        <GoldRule className="mt-2 w-48" />
-        <p className="mt-5 max-w-xl text-base leading-relaxed text-fg-muted sm:text-lg">
+        <p className="mt-7 font-script text-5xl leading-none text-gold sm:text-7xl lg:text-8xl">
+          Jelena Gutseva
+        </p>
+        <h1 className="mt-2 max-w-4xl font-display text-5xl font-medium uppercase leading-[0.88] tracking-[-0.03em] text-fg sm:text-7xl lg:text-[6.6rem]">
+          Mini Tattoo
+          <span className="mt-3 block text-[0.48em] font-normal italic tracking-[0.08em] text-gold-soft">
+            &amp; Permanent Beauty
+          </span>
+        </h1>
+        <GoldRule className="mt-8 w-56" />
+        <p className="mt-6 max-w-2xl text-base leading-relaxed text-fg-muted sm:text-lg">
           {t.hero.tagline}
         </p>
-        <div className="mt-7 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row">
+        <div className="mt-9 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row">
           <Button asChild size="lg" className="w-full sm:w-auto">
             <Link to="/booking">{t.cta}</Link>
           </Button>
-          <Button
-            asChild
-            variant="outline"
-            size="lg"
-            className="w-full sm:w-auto"
-          >
+          <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
             <Link to="/" hash="services">
               {t.nav.services}
             </Link>
           </Button>
         </div>
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-x-7 gap-y-3 text-[0.67rem] uppercase tracking-[0.18em] text-fg-subtle">
+          <span className="flex items-center gap-2">
+            <ShieldCheck className="size-4 text-gold" />
+            18+
+          </span>
+          <span className="flex items-center gap-2">
+            <Sparkles className="size-4 text-gold" />
+            {t.footer.private}
+          </span>
+        </div>
+        <Link
+          to="/"
+          hash="services"
+          aria-label={t.nav.services}
+          className="absolute bottom-6 inline-flex size-10 items-center justify-center rounded-full border border-gold/20 text-gold transition-colors hover:border-gold/60 hover:bg-gold/5"
+        >
+          <ArrowDown className="size-4" />
+        </Link>
       </div>
     </section>
   );
@@ -70,15 +86,13 @@ function Hero() {
 function Intro() {
   const { t } = useI18n();
   return (
-    <section className="px-4 py-20 sm:px-6">
-      <div className="mx-auto max-w-3xl text-center">
+    <section className="section-pad px-4 sm:px-6">
+      <div className="mx-auto max-w-4xl border-x border-gold/10 px-5 text-center sm:px-14">
         <Kicker>{t.intro.kicker}</Kicker>
         <h2 className="mt-4 font-display text-4xl font-medium italic text-fg sm:text-5xl">
           {t.intro.title}
         </h2>
-        <p className="mt-6 text-base leading-relaxed text-fg-muted sm:text-lg">
-          {t.intro.body}
-        </p>
+        <p className="mt-6 text-base leading-relaxed text-fg-muted sm:text-lg">{t.intro.body}</p>
       </div>
     </section>
   );
@@ -87,7 +101,7 @@ function Intro() {
 function Works() {
   const { t } = useI18n();
   return (
-    <section className="px-4 py-20 sm:px-6">
+    <section className="section-pad bg-bg-elevated/55 px-4 sm:px-6">
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
@@ -105,12 +119,13 @@ function Works() {
             <Link
               key={item.id}
               to="/gallery"
-              className="group relative block overflow-hidden rounded-xl border border-gold/15"
+              className="group relative block overflow-hidden rounded-xl border border-gold/15 bg-bg-card shadow-[0_24px_80px_rgba(0,0,0,0.22)]"
             >
               <img
                 src={item.src}
                 alt={t.works[item.id]}
-                className="aspect-[3/4] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                loading="lazy"
+                className="aspect-[3/4] w-full object-cover opacity-90 transition-[transform,opacity] duration-700 group-hover:scale-[1.025] group-hover:opacity-100"
               />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-bg via-bg/50 to-transparent p-5">
                 <p className="text-sm text-fg">{t.works[item.id]}</p>
@@ -126,20 +141,18 @@ function Works() {
 function Process() {
   const { t } = useI18n();
   return (
-    <section className="px-4 py-20 sm:px-6">
+    <section className="section-pad px-4 sm:px-6">
       <div className="mx-auto max-w-6xl">
         <Kicker>{t.process.kicker}</Kicker>
         <h2 className="mt-4 font-display text-4xl font-medium text-fg sm:text-5xl">
           {t.process.title}
         </h2>
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-gold/15 bg-gold/15 sm:grid-cols-2 lg:grid-cols-4">
           {t.process.steps.map((step) => (
-            <div key={step.n} className="border-t border-gold/30 pt-6">
+            <div key={step.n} className="bg-bg px-6 py-8 transition-colors hover:bg-bg-card">
               <p className="font-display text-2xl text-gold">{step.n}</p>
               <h3 className="mt-3 font-display text-2xl text-fg">{step.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-fg-muted">
-                {step.body}
-              </p>
+              <p className="mt-3 text-sm leading-relaxed text-fg-muted">{step.body}</p>
             </div>
           ))}
         </div>
@@ -151,29 +164,25 @@ function Process() {
 function About() {
   const { t } = useI18n();
   return (
-    <section id="about" className="px-4 py-20 sm:px-6">
+    <section id="about" className="section-pad bg-bg-elevated/55 px-4 sm:px-6">
       <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-2">
-        <div className="overflow-hidden rounded-xl border border-gold/15">
+        <div className="overflow-hidden rounded-xl border border-gold/15 shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
           <img
             src="/gallery/still-life.jpg"
             alt=""
+            loading="lazy"
             className="aspect-[16/10] w-full object-cover lg:aspect-[4/5]"
           />
         </div>
-        <div>
+        <div className="lg:px-8">
           <Kicker>{t.about.kicker}</Kicker>
           <h2 className="mt-4 font-display text-4xl font-medium italic text-fg sm:text-5xl">
             {t.about.title}
           </h2>
-          <p className="mt-6 text-base leading-relaxed text-fg-muted">
-            {t.about.body}
-          </p>
+          <p className="mt-6 text-base leading-relaxed text-fg-muted">{t.about.body}</p>
           <ul className="mt-8 space-y-3">
             {t.about.points.map((p) => (
-              <li
-                key={p}
-                className="flex items-start gap-3 text-sm text-fg-muted"
-              >
+              <li key={p} className="flex items-start gap-3 text-sm text-fg-muted">
                 <span className="mt-1.5 size-1.5 shrink-0 rotate-45 bg-gold" />
                 {p}
               </li>
@@ -189,7 +198,7 @@ function Faq() {
   const { t } = useI18n();
   const [open, setOpen] = useState(0);
   return (
-    <section className="px-4 py-20 sm:px-6">
+    <section className="section-pad px-4 sm:px-6">
       <div className="mx-auto max-w-3xl">
         <Kicker>{t.faq.kicker}</Kicker>
         <h2 className="mt-4 font-display text-4xl font-medium text-fg sm:text-5xl">
@@ -237,7 +246,7 @@ function CtaBand() {
   const { t } = useI18n();
   return (
     <section className="px-4 pb-24 sm:px-6">
-      <div className="mx-auto max-w-4xl border border-gold/25 px-6 py-14 text-center sm:px-12">
+      <div className="cta-surface mx-auto max-w-5xl overflow-hidden rounded-xl border border-gold/30 px-6 py-16 text-center sm:px-12 sm:py-20">
         <GoldRule className="mx-auto mb-8 w-40" />
         <h2 className="font-display text-4xl font-medium italic text-fg sm:text-5xl">
           {t.band.title}
