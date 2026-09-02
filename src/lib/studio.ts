@@ -48,12 +48,12 @@ export const SERVICES: Service[] = [
   { id: "lettering", kind: "tattoo", durationMin: 75, priceEur: 70, priceMode: "from", minNoticeDays: 2 },
   { id: "pair", kind: "tattoo", durationMin: 150, priceEur: 140, priceMode: "from", minNoticeDays: 2 },
   { id: "touchup", kind: "tattoo", durationMin: 45, priceEur: 40, priceMode: "from", minNoticeDays: 2 },
-  { id: "henna", kind: "brows", durationMin: 60, priceEur: 50, priceMode: "fixed", minNoticeDays: 1 },
-  { id: "lash-lam", kind: "brows", durationMin: 75, priceEur: 60, priceMode: "fixed", minNoticeDays: 1 },
+  { id: "henna", kind: "brows", durationMin: 60, priceEur: 20, priceMode: "fixed", minNoticeDays: 1 },
+  { id: "lash-lam", kind: "brows", durationMin: 75, priceEur: 35, priceMode: "fixed", minNoticeDays: 1 },
   { id: "pmu-brow", kind: "pmu", durationMin: 150, priceEur: 120, priceMode: "fixed", minNoticeDays: 2 },
   { id: "pmu-lip", kind: "pmu", durationMin: 150, priceEur: 120, priceMode: "fixed", minNoticeDays: 2 },
-  { id: "lashline", kind: "pmu", durationMin: 60, priceEur: 40, priceMode: "fixed", minNoticeDays: 2 },
-  { id: "wing", kind: "pmu", durationMin: 75, priceEur: 50, priceMode: "fixed", minNoticeDays: 2 },
+  { id: "lashline", kind: "pmu", durationMin: 60, priceEur: 80, priceMode: "fixed", minNoticeDays: 2 },
+  { id: "wing", kind: "pmu", durationMin: 75, priceEur: 80, priceMode: "fixed", minNoticeDays: 2 },
 ];
 
 export const SERVICE_GROUPS: { id: ServiceKind; serviceIds: ServiceId[] }[] = [
