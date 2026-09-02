@@ -61,6 +61,21 @@ export function Footer() {
             >
               {STUDIO.email}
             </a>
+            <a
+              href="https://www.facebook.com/jelena.gutseva"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Facebook — Jelena Gutseva"
+              className="mt-5 inline-flex size-11 items-center justify-center rounded-full border border-gold/30 text-gold transition-colors hover:border-gold hover:bg-gold hover:text-bg"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                className="size-5 fill-current"
+              >
+                <path d="M13.5 8H16V5h-2.5C10.9 5 9 6.7 9 9.5V12H6v3h3v7h3.5v-7H16l.5-3h-4V9.7c0-1.1.4-1.7 1-1.7Z" />
+              </svg>
+            </a>
           </div>
         </div>
         <GoldRule className="my-10" />
