@@ -42,9 +42,6 @@ export function ServiceCard({
         <span className="shrink-0 text-xs uppercase tracking-[0.16em] text-gold">{price}</span>
       </div>
       <p className="mt-3 flex-1 text-sm leading-relaxed text-fg-muted">{item.desc}</p>
-      <p className="mt-5 border-t border-gold/10 pt-4 text-xs uppercase tracking-[0.16em] text-fg-subtle">
-        {service.durationMin} {t.services.min}
-      </p>
     </>
   );
 
