@@ -151,6 +151,8 @@ const copyEt = {
     all: "Kogu galerii",
     snake: "Madu ja oliivioksad · õlg",
     stars: "Tähtkuju · pahkluu",
+    pmuBrows: "Kulmude püsimeik · enne ja pärast",
+    lashLamination: "Ripsmete lamineerimine · enne ja pärast",
   },
   process: {
     kicker: "Kuidas see toimub",
@@ -316,16 +318,19 @@ const copyEt = {
     service: "Teenus",
     date: "Kuupäev",
     time: "Kellaaeg",
-    pickDate: "T–L. Tätoveering ja püsimeik vähemalt 2 päeva ette; henna ja lamineerimine 1 päev ette.",
+    pickDate:
+      "T–L. Tätoveering ja püsimeik vähemalt 2 päeva ette; henna ja lamineerimine 1 päev ette.",
     pickTime: "Vabad ajad",
     noSlots: "Selle teenuse jaoks valitud päeval vabu aegu ei ole. Valige teine kuupäev.",
     placement: "Asukoht kehal",
     size: "Ligikaudne suurus",
     sizePh: "Näiteks 4 cm / küüne suurune",
     description: "Idee ja soovid",
-    descriptionPh: "Kirjeldage motiivi, meeleolu ning seda, mis teile meeldib või ei meeldi. Viite lingi saate lisada allpool.",
+    descriptionPh:
+      "Kirjeldage motiivi, meeleolu ning seda, mis teile meeldib või ei meeldi. Viite lingi saate lisada allpool.",
     beautyDescription: "Teie soov",
-    beautyDescriptionPh: "Kuju, värv, tihedus ja viidete juures meeldivad detailid. Allergiad ja varasemad protseduurid märkige allpool.",
+    beautyDescriptionPh:
+      "Kuju, värv, tihedus ja viidete juures meeldivad detailid. Allergiad ja varasemad protseduurid märkige allpool.",
     firstTattoo: "See on minu esimene tätoveering",
     firstBeauty: "See on minu esimene selline protseduur",
     allergies: "Allergiad ja tundlikkus (valikuline)",
@@ -340,7 +345,8 @@ const copyEt = {
     consent: "Mõistan, et see on broneerimistaotlus. Lõplik kinnitus saabub e-posti teel.",
     review: "Kontrollige taotlust",
     successTitle: "Taotlus on saadetud",
-    successBody: "Kiri on saadetud. Kirjutan teile kuupäeva ja kellaaja kinnitamiseks. Kui te ei saa ühe päeva jooksul vastust, kontrollige rämpsposti või kirjutage uuesti.",
+    successBody:
+      "Kiri on saadetud. Kirjutan teile kuupäeva ja kellaaja kinnitamiseks. Kui te ei saa ühe päeva jooksul vastust, kontrollige rämpsposti või kirjutage uuesti.",
     another: "Uus taotlus",
     home: "Avalehele",
     error: "Saatmine ebaõnnestus. Proovige uuesti või kirjutage otse e-posti teel.",
@@ -413,6 +419,8 @@ export const copy = {
       all: "Вся галерея",
       snake: "Змея и оливы · плечо",
       stars: "Созвездие · лодыжка",
+      pmuBrows: "Перманентный макияж бровей · до и после",
+      lashLamination: "Ламинирование ресниц · до и после",
     },
     process: {
       kicker: "Как это проходит",
@@ -601,8 +609,7 @@ export const copy = {
       email: "Email",
       instagram: "Instagram (необязательно)",
       adult: "Мне есть 18 лет, документ будет со мной на сеансе",
-      consent:
-        "Понимаю, что это заявка: финальное подтверждение придёт ответом на email.",
+      consent: "Понимаю, что это заявка: финальное подтверждение придёт ответом на email.",
       review: "Проверьте заявку",
       successTitle: "Заявка ушла",
       successBody:
@@ -677,6 +684,8 @@ export const copy = {
       all: "Full gallery",
       snake: "Snake & olive · shoulder",
       stars: "Constellation · ankle",
+      pmuBrows: "Permanent brows · before and after",
+      lashLamination: "Lash lamination · before and after",
     },
     process: {
       kicker: "How it works",
@@ -849,8 +858,7 @@ export const copy = {
       size: "Approximate size",
       sizePh: "e.g. 4 cm / fingernail",
       description: "The idea, in words",
-      descriptionPh:
-        "Motif, mood, likes / dislikes. A Pinterest link can go below.",
+      descriptionPh: "Motif, mood, likes / dislikes. A Pinterest link can go below.",
       beautyDescription: "What you want",
       beautyDescriptionPh:
         "Shape, colour, density, what you like in references. Allergies and past work below.",
@@ -865,8 +873,7 @@ export const copy = {
       email: "Email",
       instagram: "Instagram (optional)",
       adult: "I am 18+ and will bring ID",
-      consent:
-        "I understand this is a request — final confirmation arrives by email.",
+      consent: "I understand this is a request — final confirmation arrives by email.",
       review: "Please check",
       successTitle: "Request sent",
       successBody:

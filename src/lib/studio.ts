@@ -42,17 +42,94 @@ export type Service = {
 };
 
 export const SERVICES: Service[] = [
-  { id: "mini", kind: "tattoo", durationMin: 60, priceEur: 60, priceMode: "from", minNoticeDays: 2 },
-  { id: "small", kind: "tattoo", durationMin: 120, priceEur: 110, priceMode: "from", minNoticeDays: 2 },
-  { id: "medium", kind: "tattoo", durationMin: 180, priceEur: 180, priceMode: "from", minNoticeDays: 2 },
-  { id: "lettering", kind: "tattoo", durationMin: 75, priceEur: 70, priceMode: "from", minNoticeDays: 2 },
-  { id: "pair", kind: "tattoo", durationMin: 150, priceEur: 140, priceMode: "from", minNoticeDays: 2 },
-  { id: "touchup", kind: "tattoo", durationMin: 45, priceEur: 40, priceMode: "from", minNoticeDays: 2 },
-  { id: "henna", kind: "brows", durationMin: 60, priceEur: 20, priceMode: "fixed", minNoticeDays: 1 },
-  { id: "lash-lam", kind: "brows", durationMin: 75, priceEur: 35, priceMode: "fixed", minNoticeDays: 1 },
-  { id: "pmu-brow", kind: "pmu", durationMin: 150, priceEur: 120, priceMode: "fixed", minNoticeDays: 2 },
-  { id: "pmu-lip", kind: "pmu", durationMin: 150, priceEur: 120, priceMode: "fixed", minNoticeDays: 2 },
-  { id: "lashline", kind: "pmu", durationMin: 60, priceEur: 80, priceMode: "fixed", minNoticeDays: 2 },
+  {
+    id: "mini",
+    kind: "tattoo",
+    durationMin: 60,
+    priceEur: 60,
+    priceMode: "from",
+    minNoticeDays: 2,
+  },
+  {
+    id: "small",
+    kind: "tattoo",
+    durationMin: 120,
+    priceEur: 110,
+    priceMode: "from",
+    minNoticeDays: 2,
+  },
+  {
+    id: "medium",
+    kind: "tattoo",
+    durationMin: 180,
+    priceEur: 180,
+    priceMode: "from",
+    minNoticeDays: 2,
+  },
+  {
+    id: "lettering",
+    kind: "tattoo",
+    durationMin: 75,
+    priceEur: 70,
+    priceMode: "from",
+    minNoticeDays: 2,
+  },
+  {
+    id: "pair",
+    kind: "tattoo",
+    durationMin: 150,
+    priceEur: 140,
+    priceMode: "from",
+    minNoticeDays: 2,
+  },
+  {
+    id: "touchup",
+    kind: "tattoo",
+    durationMin: 45,
+    priceEur: 40,
+    priceMode: "from",
+    minNoticeDays: 2,
+  },
+  {
+    id: "henna",
+    kind: "brows",
+    durationMin: 60,
+    priceEur: 20,
+    priceMode: "fixed",
+    minNoticeDays: 1,
+  },
+  {
+    id: "lash-lam",
+    kind: "brows",
+    durationMin: 75,
+    priceEur: 35,
+    priceMode: "fixed",
+    minNoticeDays: 1,
+  },
+  {
+    id: "pmu-brow",
+    kind: "pmu",
+    durationMin: 150,
+    priceEur: 120,
+    priceMode: "fixed",
+    minNoticeDays: 2,
+  },
+  {
+    id: "pmu-lip",
+    kind: "pmu",
+    durationMin: 150,
+    priceEur: 120,
+    priceMode: "fixed",
+    minNoticeDays: 2,
+  },
+  {
+    id: "lashline",
+    kind: "pmu",
+    durationMin: 60,
+    priceEur: 80,
+    priceMode: "fixed",
+    minNoticeDays: 2,
+  },
   { id: "wing", kind: "pmu", durationMin: 75, priceEur: 80, priceMode: "fixed", minNoticeDays: 2 },
 ];
 
@@ -86,6 +163,11 @@ export const PLACEMENTS: PlacementId[] = [
 export const GALLERY = [
   { src: "/gallery/snake.jpg", id: "snake" },
   { src: "/gallery/stars.jpg", id: "stars" },
+  { src: "/gallery/brows-before-after.jpg", id: "pmuBrows" },
+  {
+    src: "/gallery/lash-lamination-before-after.jpg",
+    id: "lashLamination",
+  },
 ] as const;
 
 export const CLOSED_WEEKDAYS = [0, 1] as const;
@@ -107,11 +189,7 @@ export function formatPrice(s: Service, fromLabel: string): string {
 
 export function buildTimeSlots(durationMin: number): string[] {
   const slots: string[] = [];
-  for (
-    let t = OPEN_MINUTES;
-    t + durationMin <= CLOSE_MINUTES;
-    t += SLOT_STEP_MIN
-  ) {
+  for (let t = OPEN_MINUTES; t + durationMin <= CLOSE_MINUTES; t += SLOT_STEP_MIN) {
     const h = Math.floor(t / 60);
     const m = t % 60;
     slots.push(`${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`);
