@@ -56,7 +56,7 @@ export function Footer() {
               {STUDIO.email}
             </a>
             <a
-              href="https://www.facebook.com/jelena.gutseva"
+              href="https://www.facebook.com/share/1BrzobVjiT/"
               target="_blank"
               rel="noreferrer"
               aria-label="Facebook — Jelena Gutseva"
