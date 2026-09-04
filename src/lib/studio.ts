@@ -39,6 +39,7 @@ export type Service = {
   priceEur: number;
   priceMode: "from" | "fixed";
   minNoticeDays: number;
+  portfolioSrc?: string;
 };
 
 export const SERVICES: Service[] = [
@@ -105,6 +106,7 @@ export const SERVICES: Service[] = [
     priceEur: 35,
     priceMode: "fixed",
     minNoticeDays: 1,
+    portfolioSrc: "/gallery/lash-lamination-before-after.jpg",
   },
   {
     id: "pmu-brow",
@@ -113,6 +115,7 @@ export const SERVICES: Service[] = [
     priceEur: 120,
     priceMode: "fixed",
     minNoticeDays: 2,
+    portfolioSrc: "/gallery/brows-before-after.jpg",
   },
   {
     id: "pmu-lip",
@@ -163,11 +166,6 @@ export const PLACEMENTS: PlacementId[] = [
 export const GALLERY = [
   { src: "/gallery/snake.jpg", id: "snake" },
   { src: "/gallery/stars.jpg", id: "stars" },
-  { src: "/gallery/brows-before-after.jpg", id: "pmuBrows" },
-  {
-    src: "/gallery/lash-lamination-before-after.jpg",
-    id: "lashLamination",
-  },
 ] as const;
 
 export const CLOSED_WEEKDAYS = [0, 1] as const;

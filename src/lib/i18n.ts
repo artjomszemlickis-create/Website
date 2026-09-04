@@ -151,8 +151,6 @@ const copyEt = {
     all: "Kogu galerii",
     snake: "Madu ja oliivioksad · õlg",
     stars: "Tähtkuju · pahkluu",
-    pmuBrows: "Kulmude püsimeik · enne ja pärast",
-    lashLamination: "Ripsmete lamineerimine · enne ja pärast",
   },
   process: {
     kicker: "Kuidas see toimub",
@@ -419,8 +417,6 @@ export const copy = {
       all: "Вся галерея",
       snake: "Змея и оливы · плечо",
       stars: "Созвездие · лодыжка",
-      pmuBrows: "Перманентный макияж бровей · до и после",
-      lashLamination: "Ламинирование ресниц · до и после",
     },
     process: {
       kicker: "Как это проходит",
@@ -684,8 +680,6 @@ export const copy = {
       all: "Full gallery",
       snake: "Snake & olive · shoulder",
       stars: "Constellation · ankle",
-      pmuBrows: "Permanent brows · before and after",
-      lashLamination: "Lash lamination · before and after",
     },
     process: {
       kicker: "How it works",
