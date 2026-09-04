@@ -44,6 +44,8 @@ type FormState = {
   instagram: string;
   adult: boolean;
   consent: boolean;
+  privacyConsent: boolean;
+  healthConsent: boolean;
   honeypot: string;
 };
 
@@ -63,6 +65,8 @@ const empty: FormState = {
   instagram: "",
   adult: false,
   consent: false,
+  privacyConsent: false,
+  healthConsent: false,
   honeypot: "",
 };
 
@@ -151,6 +155,9 @@ export function BookingForm({ initialService }: { initialService?: string }) {
         next.email = b.required;
       if (!form.adult) next.adult = b.adultRequired;
       if (!form.consent) next.consent = b.consentRequired;
+      if (!form.privacyConsent) next.privacyConsent = b.consentRequired;
+      if (form.allergies.trim() && !form.healthConsent)
+        next.healthConsent = b.healthConsentRequired;
     }
     setErrors(next);
     return Object.keys(next).length === 0;
@@ -174,6 +181,8 @@ export function BookingForm({ initialService }: { initialService?: string }) {
       description: form.description.trim(),
       firstTattoo: form.firstTattoo,
       allergies: form.allergies.trim(),
+      privacyConsent: form.privacyConsent,
+      healthConsent: form.healthConsent,
       referenceUrl: form.referenceUrl.trim(),
       locale,
       honeypot: form.honeypot,
@@ -477,6 +486,38 @@ export function BookingForm({ initialService }: { initialService?: string }) {
               <span>{b.consent}</span>
             </label>
             <FieldError>{errors.consent}</FieldError>
+            <label className="flex items-start gap-3 text-sm text-fg-muted">
+              <input
+                type="checkbox"
+                checked={form.privacyConsent}
+                onChange={(e) => set("privacyConsent", e.target.checked)}
+                className="mt-0.5 size-4 accent-gold"
+              />
+              <span>
+                {b.privacyConsent}{" "}
+                <Link to="/legal" hash="privacy" className="text-gold underline-offset-4 hover:underline">
+                  {b.privacyLink}
+                </Link>{" · "}
+                <Link to="/legal" hash="booking" className="text-gold underline-offset-4 hover:underline">
+                  {b.termsLink}
+                </Link>
+              </span>
+            </label>
+            <FieldError>{errors.privacyConsent}</FieldError>
+            {form.allergies.trim() ? (
+              <>
+                <label className="flex items-start gap-3 text-sm text-fg-muted">
+                  <input
+                    type="checkbox"
+                    checked={form.healthConsent}
+                    onChange={(e) => set("healthConsent", e.target.checked)}
+                    className="mt-0.5 size-4 accent-gold"
+                  />
+                  <span>{b.healthConsent}</span>
+                </label>
+                <FieldError>{errors.healthConsent}</FieldError>
+              </>
+            ) : null}
           </div>
           <aside className="h-fit rounded-xl border border-gold/20 bg-bg-card p-6">
             <p className="text-xs uppercase tracking-[0.2em] text-gold">
@@ -529,6 +570,8 @@ export function BookingForm({ initialService }: { initialService?: string }) {
                 description: form.description.trim(),
                 firstTattoo: form.firstTattoo,
                 allergies: form.allergies.trim(),
+                privacyConsent: form.privacyConsent,
+                healthConsent: form.healthConsent,
                 referenceUrl: form.referenceUrl.trim(),
                 locale,
               })}
