@@ -341,6 +341,10 @@ const copyEt = {
     instagram: "Instagram (valikuline)",
     adult: "Olen vähemalt 18-aastane ja võtan protseduurile kaasa isikut tõendava dokumendi",
     consent: "Mõistan, et see on broneerimistaotlus. Lõplik kinnitus saabub e-posti teel.",
+    privacyConsent: "Nõustun broneeringuandmete töötlemisega privaatsustingimuste alusel.",
+    healthConsent: "Annan selgesõnalise nõusoleku sisestatud allergia- ja terviseandmete töötlemiseks protseduuri ohutuse eesmärgil.",
+    privacyLink: "Privaatsus",
+    termsLink: "Broneerimistingimused",
     review: "Kontrollige taotlust",
     successTitle: "Taotlus on saadetud",
     successBody:
@@ -352,6 +356,7 @@ const copyEt = {
     required: "See väli on kohustuslik",
     adultRequired: "Broneerimine on ainult täiskasvanutele",
     consentRequired: "Palun kinnitage",
+    healthConsentRequired: "Terviseandmete sisestamisel on vaja selgesõnalist nõusolekut",
     closed: "Suletud",
     placements: {
       wrist: "Ranne",
@@ -606,6 +611,10 @@ export const copy = {
       instagram: "Instagram (необязательно)",
       adult: "Мне есть 18 лет, документ будет со мной на сеансе",
       consent: "Понимаю, что это заявка: финальное подтверждение придёт ответом на email.",
+      privacyConsent: "Согласен(на) на обработку данных заявки согласно политике конфиденциальности.",
+      healthConsent: "Явно соглашаюсь на обработку указанных сведений об аллергии и здоровье для безопасного проведения процедуры.",
+      privacyLink: "Конфиденциальность",
+      termsLink: "Условия записи",
       review: "Проверьте заявку",
       successTitle: "Заявка ушла",
       successBody:
@@ -617,6 +626,7 @@ export const copy = {
       required: "Заполните это поле",
       adultRequired: "Запись только с 18 лет",
       consentRequired: "Нужно подтверждение",
+      healthConsentRequired: "Для передачи сведений о здоровье необходимо отдельное согласие",
       closed: "Выходной",
       placements: {
         wrist: "Запястье",
@@ -868,6 +878,10 @@ export const copy = {
       instagram: "Instagram (optional)",
       adult: "I am 18+ and will bring ID",
       consent: "I understand this is a request — final confirmation arrives by email.",
+      privacyConsent: "I agree to the processing of my booking data under the privacy notice.",
+      healthConsent: "I explicitly consent to the processing of the allergy and health information I provide for procedure safety.",
+      privacyLink: "Privacy notice",
+      termsLink: "Booking terms",
       review: "Please check",
       successTitle: "Request sent",
       successBody:
@@ -879,6 +893,7 @@ export const copy = {
       required: "This field is required",
       adultRequired: "Booking is 18+ only",
       consentRequired: "Please confirm",
+      healthConsentRequired: "Explicit consent is required when providing health information",
       closed: "Closed",
       placements: {
         wrist: "Wrist",
