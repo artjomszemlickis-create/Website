@@ -42,12 +42,14 @@ export function ServiceCard({
         <span className="shrink-0 text-xs uppercase tracking-[0.16em] text-gold">{price}</span>
       </div>
       {service.portfolioSrc ? (
-        <img
-          src={service.portfolioSrc}
-          alt={item.name}
-          loading="lazy"
-          className="mt-5 aspect-[4/5] w-full rounded-lg border border-gold/15 object-cover"
-        />
+        <span className="mt-5 block overflow-hidden rounded-lg border border-gold/25 bg-black p-1 shadow-[0_18px_50px_rgba(0,0,0,0.3)]">
+          <img
+            src={service.portfolioSrc}
+            alt={item.name}
+            loading="lazy"
+            className="aspect-video w-full object-contain"
+          />
+        </span>
       ) : null}
       <p className="mt-3 flex-1 text-sm leading-relaxed text-fg-muted">{item.desc}</p>
     </>

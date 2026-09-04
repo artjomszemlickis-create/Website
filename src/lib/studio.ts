@@ -106,7 +106,7 @@ export const SERVICES: Service[] = [
     priceEur: 35,
     priceMode: "fixed",
     minNoticeDays: 1,
-    portfolioSrc: "/gallery/lash-lamination-before-after.jpg",
+    portfolioSrc: "/gallery/lash-lamination-original.jpg",
   },
   {
     id: "pmu-brow",
@@ -115,7 +115,7 @@ export const SERVICES: Service[] = [
     priceEur: 120,
     priceMode: "fixed",
     minNoticeDays: 2,
-    portfolioSrc: "/gallery/brows-before-after.jpg",
+    portfolioSrc: "/gallery/brows-original.jpg",
   },
   {
     id: "pmu-lip",
