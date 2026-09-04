@@ -22,11 +22,21 @@ const bookingSchema = z.object({
   description: z.string().trim().min(8).max(2000),
   firstTattoo: z.boolean(),
   allergies: z.string().trim().max(300).optional().default(""),
+  privacyConsent: z.boolean(),
+  healthConsent: z.boolean(),
   referenceUrl: z.string().trim().max(300).optional().default(""),
   locale: z.enum(["ru", "en", "et"]),
   honeypot: z.string().optional().default(""),
   elapsedMs: z.number().optional().default(0),
-});
+})
+  .refine((data) => data.privacyConsent, {
+    message: "Privacy consent is required",
+    path: ["privacyConsent"],
+  })
+  .refine((data) => !data.allergies || data.healthConsent, {
+    message: "Explicit health-data consent is required",
+    path: ["healthConsent"],
+  });
 
 export type BookingInput = z.infer<typeof bookingSchema>;
 
@@ -80,6 +90,9 @@ function formatMessage(data: BookingInput): string {
     `Размер: ${data.size || "—"}`,
     `Первый раз: ${data.firstTattoo ? "да" : "нет"}`,
     `Аллергии: ${data.allergies || "—"}`,
+    `Согласие на обработку данных: ${data.privacyConsent ? "да" : "нет"}`,
+    `Согласие на данные о здоровье: ${data.allergies ? (data.healthConsent ? "да" : "нет") : "не применимо"}`,
+    `Версия политики: ${STUDIO.policyVersion}`,
     `Референс: ${data.referenceUrl || "—"}`,
     `Язык клиента: ${data.locale.toUpperCase()}`,
     "",
@@ -120,6 +133,9 @@ export const submitBooking = createServerFn({ method: "POST" })
     const startMinute = timeToMinutes(data.time);
     const endMinute = startMinute + service.durationMin;
     const sql = await getSql();
+    await sql.query(
+      "delete from bookings where created_at < now() - interval '12 months'",
+    );
     let bookingId: number;
     try {
       const rows = await sql.query<{ booking_id: number }>(
@@ -127,9 +143,9 @@ export const submitBooking = createServerFn({ method: "POST" })
           insert into bookings (
             service, booking_date, start_minute, end_minute, name, email, phone,
             instagram, placement, size, description, first_tattoo, allergies,
-            reference_url, locale
+            reference_url, locale, privacy_consent, health_consent, policy_version
           ) values (
-            $1, $2::date, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15
+            $1, $2::date, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18
           ) returning id
         )
         insert into booking_slot_quarters (booking_id, booking_date, slot_minute)
@@ -140,6 +156,7 @@ export const submitBooking = createServerFn({ method: "POST" })
           data.service, data.date, startMinute, endMinute, data.name, data.email,
           data.phone, data.instagram, data.placement, data.size, data.description,
           data.firstTattoo, data.allergies, data.referenceUrl, data.locale,
+          data.privacyConsent, data.healthConsent, STUDIO.policyVersion,
         ],
       );
       bookingId = rows[0]?.booking_id;
@@ -180,6 +197,9 @@ export const submitBooking = createServerFn({ method: "POST" })
       size: data.size || "—",
       first_visit: data.firstTattoo ? "yes" : "no",
       allergies: data.allergies || "—",
+      privacy_consent: data.privacyConsent ? "yes" : "no",
+      health_consent: data.allergies ? (data.healthConsent ? "yes" : "no") : "not applicable",
+      policy_version: STUDIO.policyVersion,
       reference: data.referenceUrl || "—",
       locale: data.locale,
       message: formatMessage(data),
