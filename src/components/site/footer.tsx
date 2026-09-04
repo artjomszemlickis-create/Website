@@ -45,6 +45,11 @@ export function Footer() {
                   {t.nav.book}
                 </Link>
               </li>
+              <li>
+                <Link to="/legal" className="hover:text-gold">
+                  {t.booking.privacyLink} · {t.booking.termsLink}
+                </Link>
+              </li>
             </ul>
           </div>
           <div>

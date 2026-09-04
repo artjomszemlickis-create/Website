@@ -60,6 +60,7 @@ test("app migrations are globbed while the auth schema stays opt-in", () => {
   const migrationsDir = join(projectRoot(), "migrations");
   assert.deepEqual(pendingMigrations(readdirSync(migrationsDir), []), [
     { name: "0001_bookings.sql", path: "0001_bookings.sql" },
+    { name: "0002_booking_consents.sql", path: "0002_booking_consents.sql" },
   ]);
   assert.ok(readdirSync(join(migrationsDir, "auth")).includes("0001_auth.sql"));
 });

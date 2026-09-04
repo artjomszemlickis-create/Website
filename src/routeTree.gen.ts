@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AftercareRouteImport } from './routes/aftercare'
 import { Route as BookingRouteImport } from './routes/booking'
 import { Route as GalleryRouteImport } from './routes/gallery'
+import { Route as LegalRouteImport } from './routes/legal'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,18 +35,25 @@ const GalleryRoute = GalleryRouteImport.update({
   path: '/gallery',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LegalRoute = LegalRouteImport.update({
+  id: '/legal',
+  path: '/legal',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/aftercare': typeof AftercareRoute
   '/booking': typeof BookingRoute
   '/gallery': typeof GalleryRoute
+  '/legal': typeof LegalRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/aftercare': typeof AftercareRoute
   '/booking': typeof BookingRoute
   '/gallery': typeof GalleryRoute
+  '/legal': typeof LegalRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,14 @@ export interface FileRoutesById {
   '/aftercare': typeof AftercareRoute
   '/booking': typeof BookingRoute
   '/gallery': typeof GalleryRoute
+  '/legal': typeof LegalRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/aftercare' | '/booking' | '/gallery'
+  fullPaths: '/' | '/aftercare' | '/booking' | '/gallery' | '/legal'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/aftercare' | '/booking' | '/gallery'
-  id: '__root__' | '/' | '/aftercare' | '/booking' | '/gallery'
+  to: '/' | '/aftercare' | '/booking' | '/gallery' | '/legal'
+  id: '__root__' | '/' | '/aftercare' | '/booking' | '/gallery' | '/legal'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +76,7 @@ export interface RootRouteChildren {
   AftercareRoute: typeof AftercareRoute
   BookingRoute: typeof BookingRoute
   GalleryRoute: typeof GalleryRoute
+  LegalRoute: typeof LegalRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +109,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GalleryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/legal': {
+      id: '/legal'
+      path: '/legal'
+      fullPath: '/legal'
+      preLoaderRoute: typeof LegalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +124,7 @@ const rootRouteChildren: RootRouteChildren = {
   AftercareRoute: AftercareRoute,
   BookingRoute: BookingRoute,
   GalleryRoute: GalleryRoute,
+  LegalRoute: LegalRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
