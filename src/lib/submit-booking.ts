@@ -170,55 +170,34 @@ export const submitBooking = createServerFn({ method: "POST" })
 
     const price = service ? formatPrice(service, "от") : "—";
     const subject = `Запись: ${data.name} — ${data.date} ${data.time} — ${data.service}`;
-    const autoresponse =
-      data.locale === "en"
-        ? "Thank you. Your booking request for Jelena Gutseva has been received. I will email you to confirm the date and time."
-        : data.locale === "et"
-          ? "Aitäh! Teie broneerimistaotlus Jelena Gutseva juurde on kätte saadud. Kirjutan teile kuupäeva ja kellaaja kinnitamiseks."
-          : "Спасибо. Заявка на запись к Jelena Gutseva получена. Я напишу, чтобы подтвердить дату и время.";
-
-    const payload: Record<string, string> = {
-      _subject: subject,
-      _template: "table",
-      _captcha: "false",
-      _replyto: data.email,
-      _autoresponse: autoresponse,
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      instagram: data.instagram || "—",
-      service: data.service,
-      category: service?.kind ?? "—",
-      price,
-      duration: service ? `${service.durationMin} min` : "—",
-      date: data.date,
-      time: data.time,
-      placement: data.placement || "—",
-      size: data.size || "—",
-      first_visit: data.firstTattoo ? "yes" : "no",
-      allergies: data.allergies || "—",
-      privacy_consent: data.privacyConsent ? "yes" : "no",
-      health_consent: data.allergies ? (data.healthConsent ? "yes" : "no") : "not applicable",
-      policy_version: STUDIO.policyVersion,
-      reference: data.referenceUrl || "—",
-      locale: data.locale,
-      message: formatMessage(data),
-    };
-
     try {
-      const res = await fetch(`https://formsubmit.co/ajax/${STUDIO.email}`, {
+      const apiKey = process.env.RESEND_API_KEY;
+      if (!apiKey) {
+        console.error("[booking-email] RESEND_API_KEY is missing");
+        await sql.query("delete from bookings where id = $1", [bookingId]);
+        return { ok: false as const, reason: "email_failed" as const };
+      }
+
+      const res = await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: {
+          Authorization: `Bearer ${apiKey}`,
           "Content-Type": "application/json",
-          Accept: "application/json",
+          "Idempotency-Key": `booking-${bookingId}`,
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          from: "Jelena Gutseva <booking@jelenagutseva.ee>",
+          to: [STUDIO.email],
+          reply_to: data.email,
+          subject,
+          text: `${formatMessage(data)}\n\nЦена: ${price}`,
+        }),
         signal: AbortSignal.timeout(15000),
       });
 
       if (!res.ok) {
         const responseText = await res.text().catch(() => "");
-        console.error("[booking-email] FormSubmit rejected request", {
+        console.error("[booking-email] Resend rejected request", {
           status: res.status,
           statusText: res.statusText,
           response: responseText.slice(0, 500),
@@ -227,10 +206,10 @@ export const submitBooking = createServerFn({ method: "POST" })
         return { ok: false as const, reason: "email_failed" as const };
       }
 
-      console.info("[booking-email] FormSubmit accepted request", { status: res.status });
+      console.info("[booking-email] Resend accepted request", { status: res.status });
       return { ok: true as const };
     } catch (error) {
-      console.error("[booking-email] FormSubmit request failed", {
+      console.error("[booking-email] Resend request failed", {
         error: error instanceof Error ? error.message : String(error),
       });
       await sql.query("delete from bookings where id = $1", [bookingId]);
