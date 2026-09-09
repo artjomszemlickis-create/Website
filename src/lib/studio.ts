@@ -1,7 +1,7 @@
 export const STUDIO = {
   artist: "Jelena Gutseva",
   name: "Mini Tattoo",
-  email: "JelenaGutseva@gmail.com",
+  email: "artjomszemlickis@gmail.com",
   city: "Kohtla-Järve, Estonia",
   operatorStatus: "Entrepreneur account user (ettevõtluskonto kasutaja)",
   privacyRetentionMonths: 12,
