@@ -217,12 +217,22 @@ export const submitBooking = createServerFn({ method: "POST" })
       });
 
       if (!res.ok) {
+        const responseText = await res.text().catch(() => "");
+        console.error("[booking-email] FormSubmit rejected request", {
+          status: res.status,
+          statusText: res.statusText,
+          response: responseText.slice(0, 500),
+        });
         await sql.query("delete from bookings where id = $1", [bookingId]);
         return { ok: false as const, reason: "email_failed" as const };
       }
 
+      console.info("[booking-email] FormSubmit accepted request", { status: res.status });
       return { ok: true as const };
-    } catch {
+    } catch (error) {
+      console.error("[booking-email] FormSubmit request failed", {
+        error: error instanceof Error ? error.message : String(error),
+      });
       await sql.query("delete from bookings where id = $1", [bookingId]);
       return { ok: false as const, reason: "email_failed" as const };
     }
