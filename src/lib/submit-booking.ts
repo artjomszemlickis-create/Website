@@ -186,7 +186,7 @@ export const submitBooking = createServerFn({ method: "POST" })
           "Idempotency-Key": `booking-${bookingId}`,
         },
         body: JSON.stringify({
-          from: "Jelena Gutseva <booking@jelenagutseva.ee>",
+          from: "Jelena Gutseva booking <onboarding@resend.dev>",
           to: [STUDIO.email],
           reply_to: data.email,
           subject,
